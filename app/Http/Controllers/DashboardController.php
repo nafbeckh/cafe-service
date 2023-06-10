@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Setting;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard.data');
+        $cafe = Setting::first();
+
+        return view('dashboard.data', compact(['cafe']))->with('title', 'Dashboard');
+
     }
 }
