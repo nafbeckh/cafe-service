@@ -1,36 +1,17 @@
 @extends('layouts.template')
 
-@push('css')
-<!-- Select2 -->
-<link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-<!-- daterange picker -->
-<link rel="stylesheet" href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css') }}">
-<style>
-    .daterangepicker td.in-range {
-        background-color: #7ffaf0;
-    }
-
-    .daterangepicker td.active,
-    .daterangepicker td.active:hover {
-        background-color: #357ebd;
-    }
-</style>
-@endpush
-
 @section('content')
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Dashboard</h1>
+                <h1>{{ $title }}</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item active">{{ $title }}</li>
                 </ol>
             </div>
         </div>
@@ -105,16 +86,4 @@
     </div>
 </section>
 <!-- /.content -->
-
-
 @endsection
-
-@push('js')
-<!-- ChartJS -->
-<script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
-<!-- Select2 -->
-<script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
-<!-- date-range-picker -->
-<script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
-@endpush
