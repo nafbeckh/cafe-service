@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -16,11 +15,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $admin = User::create([
             'nama' => 'Admin',
             'username' => 'admin',
             'password' => Hash::make('admin123'),
             'foto' => 'avatar.png'
         ]);
+
+        $admin->assignRole('admin');
     }
 }
