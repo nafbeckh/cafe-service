@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     LoginController,
-    DashboardController
+    DashboardController,
+    SettingController
 };
 
 /*
@@ -22,6 +23,12 @@ Route::post('/', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
-    Route::post('/dashboard', [DashboardController::class, 'logout']);
+
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');;
+        
+        Route::get('/setting', [SettingController::class, 'index'])->name('setting.cafe');
+        Route::post('/setting', [SettingController::class, 'update'])->name('setting.cafe.update');
+    });
+
 });
