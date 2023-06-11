@@ -57,7 +57,7 @@
                   </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                      <a href="" class="btn btn-default btn-flat">Profile</a>
+                      <a href="{{ route('setting.profile') }}" class="btn btn-default btn-flat">Profile</a>
                       <a href="javascript:void(0);" onclick="logout_()" class="btn btn-default btn-flat float-right">Log out</a>
                   </li>
               </ul>

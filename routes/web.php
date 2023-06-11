@@ -31,4 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/setting', [SettingController::class, 'update'])->name('setting.cafe.update');
     });
 
+    Route::get('/profile', [SettingController::class, 'profile'])->name('setting.profile');
+    Route::post('/profile', [SettingController::class, 'profileUpdate'])->name('setting.profileUpdate');
+
 });

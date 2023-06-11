@@ -5,22 +5,26 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>{{ $title }}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">{{ $title }}</li>
-            </ol>
-        </div>
-    </div>
+      <div class="row mb-2">
+          <div class="col-sm-6">
+              <h1>{{ $title }}</h1>
+          </div>
+          <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                  <li class="breadcrumb-item active">{{ $title }}</li>
+              </ol>
+          </div>
+      </div>
   </div><!-- /.container-fluid -->
 </section>
 
 <section class="content">
   <div class="container-fluid">
+    <div class="alert alert-info alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      Kosongkan password jika tidak ingin mengganti password!
+    </div>
     <div class="card card-default">
       <div class="card-header">
         <h3 class="card-title">Form {{ $title }}</h3>
@@ -35,23 +39,28 @@
         </div>
       </div>
       <!-- /.card-header -->
-      <form method="POST" action="{{ route('setting.cafe.update') }}" id="form" enctype="multipart/form-data">
+      <form method="POST" action="{{ route('setting.profileUpdate') }}" id="form" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="nama_cafe">Nama Cafe :</label>
-                <input type="text" name="nama_cafe" id="nama_cafe" class="form-control @error('nama_cafe') is-invalid @enderror" placeholder="Masukkan Nama Cafe" value="{{ $cafe->nama_cafe }}" required minlength="3" maxlength="25">
-                @error('nama_cafe')
+                <label for="nama">Nama :</label>
+                <input type="text" name="nama" id="nama" class="form-control @error('nama') is-invalid @enderror" placeholder="Masukkan Nama" required value="{{ auth()->user()->nama }}">
+                @error('nama')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
               </div>
-  
+
               <div class="form-group">
-                <label for="alamat">Alamat :</label>
-                <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" placeholder="Masukkan Alamat">{{ $cafe->alamat }}</textarea>
-                @error('alamat')
+                <label for="password">Password :</label>
+                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password">
+              </div>
+
+              <div class="form-group">
+                <label for="confirmPassword">Konfirmasi Password :</label>
+                <input type="password" name="confirmPassword" class="form-control @error('confirmPassword') is-invalid @enderror" id="confirmPassword" placeholder="Konfirmasi Password">
+                @error('password')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
               </div>
@@ -59,7 +68,7 @@
             <!-- /.col -->
             <div class="col-md-6">
               <div class="form-group">
-                <label for="logo">Logo :</label>
+                <label for="foto">Foto :</label>
                 <div class="custom-file">
                   <input type="file" name="foto" class="custom-file-input @error('foto') is-invalid @enderror" id="foto">
                   <label class="custom-file-label" for="foto">Choose file</label>
@@ -67,7 +76,7 @@
                 @error('foto')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
-              <img src="{{ asset('assets/dist/img') }}/{{ $cafe->path_logo }}" alt="Logo Toko" width="100px" height="100px">
+                <img src="{{ asset('assets/dist/img') }}/{{ auth()->user()->foto }}" alt="User Profile" width="100px" height="100px">
             </div>
             </div>
             <!-- /.col -->
@@ -88,6 +97,7 @@
 @endsection
 
 @push('js')
+
 @if(session()->has('success'))
 <script>
     Swal.fire(
@@ -105,9 +115,5 @@
     )
 </script>
 @endif
-<script>
-    $(document).ready(function() {
-        bsCustomFileInput.init();
-    })
-</script>
+
 @endpush
