@@ -17,7 +17,7 @@ class SettingSeeder extends Seeder
         Setting::create([
             'nama_cafe' => 'Cafe Service',
             'alamat' => 'Jl. Jendral Sudirman',
-            'path_logo' => 'AdminLTELogo.png'
+            'path_logo' => 'logo-20230610091921.png'
         ]);
     }
 }
