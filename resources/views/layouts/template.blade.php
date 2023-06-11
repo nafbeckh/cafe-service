@@ -86,34 +86,9 @@
           </div>
 
           <!-- Sidebar Menu -->
-          <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li class="nav-header">DATA MASTER</li>
-                <li class="nav-item">
-                  <a href="" class="nav-link">
-                      <i class="nav-icon fas fa-cube"></i>
-                      <p>
-                          Kategori Menu
-                      </p>
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a href="" class="nav-link">
-                      <i class="nav-icon fas fa-cubes"></i>
-                      <p>
-                          Menu
-                      </p>
-                  </a>
-              </li>
-            </ul>
-          </nav>
+          @include('layouts.sidebar')
           <!-- /.sidebar-menu -->
+          
         </div>
         <!-- /.sidebar -->
       </aside>
@@ -124,7 +99,7 @@
       </div>
       <!-- /.content-wrapper -->
       <footer class="main-footer">
-        <strong>Copyright &copy; 2023 <a href="https://github.com/nafbeckh" target="_blank">Nafbeckh</a>
+        <strong>Copyright &copy; 2023 <a href="https://github.com/nafbeckh/cafe-service" target="_blank">Cafe Service</a>
       </footer>
 
       <!-- Control Sidebar -->
