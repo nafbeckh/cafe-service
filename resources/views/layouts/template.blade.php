@@ -4,7 +4,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="csrf-token" content="{{ csrf_token() }}">
-      <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/dist/img') }}/AdminLTELogo.png" />
+      <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/dist/img') }}/{{ $cafe->path_logo }}" />
       <title>{{ $cafe->nama_cafe }} | {{ $title }}</title>
 
       <!-- Google Font: Source Sans Pro -->
@@ -13,6 +13,8 @@
       <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
       <!-- Theme style -->
       <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+      <!-- overlayScrollbars -->
+      <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
       <!-- SweetAlert2 -->
       <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
   </head>
@@ -121,6 +123,8 @@
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- SweetAlert2 -->
     <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     
