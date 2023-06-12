@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,7 +10,8 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('login');
+        $cafe = Setting::first();
+        return view('login', compact(['cafe']))->with('title', 'Log In');
     }
 
     public function authenticate(Request $request)
