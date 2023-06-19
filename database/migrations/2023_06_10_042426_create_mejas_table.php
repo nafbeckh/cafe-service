@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMejaTable extends Migration
+class CreateMejasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateMejaTable extends Migration
      */
     public function up()
     {
-        Schema::create('meja', function (Blueprint $table) {
+        Schema::create('mejas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_meja');
+            $table->string('no_meja');
+            $table->enum('status', ['Kosong', 'Diisi'])->default('Kosong');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateMejaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meja');
+        Schema::dropIfExists('mejas');
     }
 }

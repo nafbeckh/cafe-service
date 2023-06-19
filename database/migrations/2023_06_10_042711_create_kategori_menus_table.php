@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenuTable extends Migration
+class CreateKategoriMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateMenuTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu', function (Blueprint $table) {
+        Schema::create('kategori_menus', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_menu');
-            $table->integer('harga');
-            $table->integer('kategori');
+            $table->string('nama_kat');
             $table->timestamps();
         });
     }
@@ -29,8 +27,6 @@ class CreateMenuTable extends Migration
      */
     public function down()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        Schema::dropIfExists('menu');
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        Schema::dropIfExists('kategori_menus');
     }
 }
