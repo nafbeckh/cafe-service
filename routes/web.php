@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     LoginController,
     DashboardController,
+    MejaController,
     SettingController
 };
 
@@ -26,6 +27,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');;
+       
+        Route::resource('meja', MejaController::class)->only('store', 'index');
+        Route::post('meja/destroyBatch', [MejaController::class, 'destroyBatch'])->name('meja.destroy.batch');
+        Route::resource('meja', MejaController::class)->except('create', 'show');
         
         Route::get('/setting', [SettingController::class, 'index'])->name('setting.cafe');
         Route::post('/setting', [SettingController::class, 'update'])->name('setting.cafe.update');
