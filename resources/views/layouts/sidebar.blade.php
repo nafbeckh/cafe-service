@@ -8,7 +8,7 @@
     </li>
     <li class="nav-header">DATA MASTER</li>
     <li class="nav-item">
-      <a href="" class="nav-link">
+      <a href="{{ route('meja.index') }}" class="nav-link {{ $title == 'Data Meja' ? 'active' : '' }}">
           <i class="nav-icon fa fa-store-alt"></i>
           <p>Meja</p>
       </a>
