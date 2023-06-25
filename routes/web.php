@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     LoginController,
     DashboardController,
+    KategoriController,
     MejaController,
     SettingController
 };
@@ -28,6 +29,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');;
        
+        Route::post('kategori/destroyBatch', [KategoriController::class, 'destroyBatch'])->name('kategori.destroy.batch');
+        Route::resource('kategori', KategoriController::class)->except('create', 'show');
+
         Route::resource('meja', MejaController::class)->only('store', 'index');
         Route::post('meja/destroyBatch', [MejaController::class, 'destroyBatch'])->name('meja.destroy.batch');
         Route::resource('meja', MejaController::class)->except('create', 'show');
