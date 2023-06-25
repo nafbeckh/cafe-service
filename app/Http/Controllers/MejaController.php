@@ -21,7 +21,7 @@ class MejaController extends Controller
             return DataTables::of(Meja::query())->toJson();
         }
 
-        return view('meja.data', compact(['cafe']))->with('title', 'Data Meja');
+        return view('meja.data', compact(['cafe']))->with('title', 'Meja');
     }
 
     /**
