@@ -15,9 +15,11 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('kategori_id');
             $table->string('nama_menu');
             $table->integer('harga');
             $table->integer('kategori');
+            $table->foreign('kategori_id')->references('id')->on('kategoris')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
