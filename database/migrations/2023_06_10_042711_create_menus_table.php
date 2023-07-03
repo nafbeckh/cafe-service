@@ -18,7 +18,7 @@ class CreateMenusTable extends Migration
             $table->unsignedBigInteger('kategori_id');
             $table->string('nama_menu');
             $table->integer('harga');
-            $table->integer('kategori');
+            $table->string('foto');
             $table->foreign('kategori_id')->references('id')->on('kategoris')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
