@@ -89,7 +89,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Batal</button>
+                    <button type="reset" id="reset" class="btn btn-secondary">Reset</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
@@ -120,7 +121,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" id="edit_reset" class="btn btn-secondary">Reset</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
@@ -503,6 +505,7 @@
                     success: function(res) {
                         table.ajax.reload();
                         $('button[type="submit"]').prop('disabled', false);
+                        $('#reset').click();
                         if (res.status == true) {
                             Swal.fire(
                                 'Success!',

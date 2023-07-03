@@ -16,7 +16,7 @@
     </li>
 
     <li class="nav-item">
-        <a href="" class="nav-link">
+        <a href="{{ route('menu.index') }}" class="nav-link {{ $title == 'Menu' ? 'active' : '' }}">
             <i class="nav-icon fas fa-hamburger"></i>
             <p>Menu</p>
         </a>
