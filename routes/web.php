@@ -7,6 +7,7 @@ use App\Http\Controllers\{
     KategoriController,
     MenuController,
     MejaController,
+    UserController,
     SettingController
 };
 
@@ -39,6 +40,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('meja', MejaController::class)->only('store', 'index');
         Route::post('meja/destroyBatch', [MejaController::class, 'destroyBatch'])->name('meja.destroy.batch');
         Route::resource('meja', MejaController::class)->except('create', 'show');
+
+        Route::post('user/destroyBatch', [UserController::class, 'destroyBatch'])->name('user.destroy.batch');
+        Route::resource('user', UserController::class)->except('create', 'show');
         
         Route::get('/setting', [SettingController::class, 'index'])->name('setting.cafe');
         Route::post('/setting', [SettingController::class, 'update'])->name('setting.cafe.update');

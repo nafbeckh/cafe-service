@@ -39,7 +39,7 @@
   
     <li class="nav-header">SISTEM</li>
     <li class="nav-item">
-      <a href="" class="nav-link {{ $title == 'Profile' ? 'active' : '' }}">
+        <a href="{{ route('user.index') }}" class="nav-link {{ $title == 'User' ? 'active' : '' }}">
           <i class="nav-icon fas fa-users"></i>
           <p>User</p>
       </a>
