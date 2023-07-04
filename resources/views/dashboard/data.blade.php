@@ -26,14 +26,29 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>2</h3>
+                        <h3>3</h3>
 
-                        <p>Total Kategori</p>
+                        <p>Pelanggan</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-cube"></i>
+                        <i class="fas fa-users"></i>
                     </div>
                     <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-secondary">
+                    <div class="inner">
+                        <h3>{{ $kategori }}</h3>
+
+                        <p>Kategori</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-list-ol"></i>
+                    </div>
+                    <a href="{{ route('kategori.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -41,29 +56,14 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>12</h3>
+                        <h3>{{ $menu }}</h3>
 
-                        <p>Total Menu</p>
+                        <p>Menu</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-hamburger"></i>
                     </div>
-                    <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h3>3</h3>
-
-                        <p>Pesanan</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('menu.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -73,10 +73,10 @@
                     <div class="inner">
                         <h3>6</h3>
 
-                        <p>Meja</p>
+                        <p>Pesanan</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-table"></i>
+                        <i class="fas fa-shopping-basket"></i>
                     </div>
                     <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
