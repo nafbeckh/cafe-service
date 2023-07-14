@@ -15,7 +15,7 @@ class CreateMejasTable extends Migration
     {
         Schema::create('mejas', function (Blueprint $table) {
             $table->id();
-            $table->string('no_meja');
+            $table->string('no_meja', '5');
             $table->enum('status', ['Kosong', 'Diisi'])->default('Kosong');
             $table->timestamps();
         });

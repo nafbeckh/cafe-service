@@ -15,8 +15,8 @@ class CreateSettingTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_cafe');
-            $table->string('alamat');
+            $table->string('nama_cafe', '50');
+            $table->string('alamat', '100');
             $table->string('path_logo');
             $table->timestamps();
         });

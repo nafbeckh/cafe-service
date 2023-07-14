@@ -14,7 +14,7 @@ class Pesanan extends Migration
     public function up()
     {
         Schema::create('pesanans', function (Blueprint $table) {
-            $table->id();
+            $table->string('no_pesanan', 12)->primary();
             $table->unsignedBigInteger('meja_id');
             $table->unsignedBigInteger('waiter_id');
             $table->enum('status', ['Belum Dikonfirmasi', 'Dikonfirmasi', 'Selesai'])->default('Belum Dikonfirmasi');
