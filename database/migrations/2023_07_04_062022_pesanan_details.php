@@ -15,10 +15,10 @@ class PesananDetails extends Migration
     {
         Schema::create('pesanan_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pesana_id');
+            $table->string('no_pesanan', 12);
             $table->unsignedBigInteger('menu_id');
             $table->integer('jumlah');
-            $table->foreign('pesana_id')->references('id')->on('pesanans')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('no_pesanan')->references('no_pesanan')->on('pesanans')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('menu_id')->references('id')->on('menus')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
