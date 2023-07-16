@@ -1,4 +1,5 @@
 <nav class="mt-2">
+    @hasrole('admin')
 	<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <li class="nav-item">
         <a href="{{ route('dashboard') }}" class="nav-link {{ $title == 'Dashboard' ? 'active' : '' }}">
@@ -45,11 +46,20 @@
       </a>
     </li>
   
-    @hasrole('admin')
     <li class="nav-item">
         <a href="{{ route('setting.cafe') }}" class="nav-link {{ $title == 'Setting Cafe' ? 'active' : '' }}">
             <i class="nav-icon fas fa-store"></i>
             <p>Cafe</p>
+        </a>
+    </li>
+    @endhasrole
+
+    @hasrole('chef')
+	<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <li class="nav-item">
+        <a href="{{ route('pesanan.index') }}" class="nav-link {{ $title == 'Pesanan' ? 'active' : '' }}">
+            <i class="nav-icon fas fa-shopping-basket"></i>
+            <p>Pesanan</p>
         </a>
     </li>
     @endhasrole
