@@ -14,7 +14,12 @@ class DashboardController extends Controller
         $kategori = Kategori::count();
         $menu = Menu::count();
 
-        return view('dashboard.data', compact(['cafe', 'kategori', 'menu']))->with('title', 'Dashboard');
-
+        if (auth()->user()->hasRole('admin')) {
+            return view('dashboard.data', compact(['cafe', 'kategori', 'menu']))->with('title', 'Dashboard');
+        } else if (auth()->user()->hasRole('chef')) {
+            return redirect()->intended('pesanan');
+        } else if (auth()->user()->hasRole('waiter')) {
+            return redirect()->intended('pesanan/meja');
+        }
     }
 }
