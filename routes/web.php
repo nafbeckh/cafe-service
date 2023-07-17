@@ -8,6 +8,8 @@ use App\Http\Controllers\{
     MenuController,
     MejaController,
     UserController,
+    PesananController,
+    PemesananController,
     SettingController
 };
 
@@ -27,10 +29,9 @@ Route::post('/', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');;
 
     Route::group(['middleware' => ['role:admin']], function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');;
-       
         Route::post('kategori/destroyBatch', [KategoriController::class, 'destroyBatch'])->name('kategori.destroy.batch');
         Route::resource('kategori', KategoriController::class)->except('create', 'show');
 
@@ -46,6 +47,27 @@ Route::group(['middleware' => 'auth'], function () {
         
         Route::get('/setting', [SettingController::class, 'index'])->name('setting.cafe');
         Route::post('/setting', [SettingController::class, 'update'])->name('setting.cafe.update');
+    });
+
+    Route::group(['middleware' => ['role:chef']], function () {
+        Route::get('pesanan', [PesananController::class, 'index'])->name('pesanan.index');
+        Route::post('pesanan/konfirmasi', [PesananController::class, 'konfirmasiPesanan'])->name('pesanan.konfirmasi');
+        Route::post('pesanan/siap', [PesananController::class, 'pesananSiap'])->name('pesanan.siap');
+    });
+
+    Route::group(['middleware' => ['role:waiter']], function () {
+        Route::get('pesanan/meja', [PesananController::class, 'meja'])->name('pesanan.meja');
+        Route::get('pesanan/menu/{id}', [PesananController::class, 'menu'])->name('pesanan.menu');
+        Route::get('pesanan/getmenu', [PesananController::class, 'getMenu'])->name('pesanan.getmenu');
+        Route::post('pesanan/pesan', [PesananController::class, 'pesan'])->name('pesanan.pesan');
+        Route::get('pesanan/detail/{no_pesanan}', [PesananController::class, 'showDetail'])->name('pesanan.detail');
+        Route::get('pesanan/print/{no_pesanan}', [PesananController::class, 'print'])->name('pesanan.print');
+        Route::post('pesanan/selesai', [PesananController::class, 'pesananSelesai'])->name('pesanan.selesai');
+    
+    });
+
+    Route::group(['middleware' => ['role:chef|waiter']], function () {
+        Route::get('pesanan/detail/{no_pesanan}', [PesananController::class, 'showDetail'])->name('pesanan.detail');
     });
 
     Route::get('/profile', [SettingController::class, 'profile'])->name('setting.profile');
