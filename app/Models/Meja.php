@@ -9,6 +9,11 @@ class Meja extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'no_meja', 'status'
+        'no_meja', 'status', 'no_pesanan'
     ];
+
+    public function pesanan()
+    {
+        return $this->hasMany(Pesanan::class);
+    }
 }
