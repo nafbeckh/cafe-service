@@ -16,4 +16,9 @@ class Menu extends Model
     {
         return $this->belongsTo(Kategori::class);
     }
+
+    public function pesanan_detail()
+    {
+        return $this->belongsTo(Pesanan_detail::class);
+    }
 }
