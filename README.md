@@ -26,13 +26,11 @@ Cafe Service merupakan aplikasi berbasis web untuk melayani pemesanan menu di se
 1. Buat akun di [pusher.com](https://pusher.com/)
 2. Buat Pusher Channel
 3. Masukkan App Keys channel tersebut ke dalam file `.env`
-
-Contoh:
 ```
-PUSHER_APP_ID=xxxxxxx
-PUSHER_APP_KEY=xxxxxxxxxxxxxxxxxxxx
-PUSHER_APP_SECRET=xxxxxxxxxxxxxxxxxxxx
-PUSHER_APP_CLUSTER=xxx
+PUSHER_APP_ID=YOUR_APPID
+PUSHER_APP_KEY=YOUR_KEY
+PUSHER_APP_SECRET=YOUR_SECRET
+PUSHER_APP_CLUSTER=YOUR_CLUSTER
 ```
 
 ### Login Admin 
