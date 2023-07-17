@@ -84,14 +84,22 @@
               <img src="{{ asset('assets/dist/img') }}/{{ auth()->user()->foto }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="javascript:void(0);" class="d-block">{{ auth()->user()->nama }} <span class="badge @hasrole('admin') badge-success @else badge-danger @endhasrole">@hasrole('admin') admin @elseif('waiter') waiter @elseif('chef') chef @endhasrole</span></a>
+              <a href="javascript:void(0);" class="d-block">{{ auth()->user()->nama }} <span class="badge @hasrole('admin') badge-success @else badge-danger @endhasrole">
+                @if(auth()->user()->hasRole('admin'))
+                  admin
+                @elseif(auth()->user()->hasRole('chef'))
+                  chef
+                @else
+                  waiter
+                @endif
+              </span></a>
             </div>
           </div>
 
           <!-- Sidebar Menu -->
           @include('layouts.sidebar')
           <!-- /.sidebar-menu -->
-          
+
         </div>
         <!-- /.sidebar -->
       </aside>

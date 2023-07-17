@@ -84,18 +84,18 @@
     </div>
     <!-- /.content-wrapper -->
 
-    {{-- <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar --> --}}
-
+    <form action="{{ route('logout') }}" method="POST" id="form_logout" class="d-none">
+      @csrf
+    </form>
+    
     <!-- Main Footer -->
     <footer class="main-footer">
       <strong>Copyright &copy; 2023 <a href="https://github.com/nafbeckh/cafe-service" target="_blank">Cafe Service</a>
     </footer>
   </div>
   <!-- ./wrapper -->
+
+  
 
   <!-- jQuery -->
   <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
@@ -107,5 +107,24 @@
   <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
   
   @stack('js')
+  <script>
+    function logout_() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You will be logout!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Yes!',
+            confirmButtonAriaLabel: 'Thumbs up, Yes!',
+            cancelButtonText: '<i class="fa fa-thumbs-down"></i> No',
+            cancelButtonAriaLabel: 'Thumbs down',
+            padding: '2em'
+        }).then(function(result) {
+            if (result.value) {
+                $('#form_logout').submit();
+            }
+        })
+    }
+</script>
   </body>
 </html>
