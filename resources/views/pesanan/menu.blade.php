@@ -1,5 +1,16 @@
 @extends('layouts.user-template')
 
+@push('css')
+<style>
+  .img-replace {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+</style>
+@endpush
+
 @section('content')
 
 <!-- Content Header (Page header) -->
@@ -11,7 +22,7 @@
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{ route('pesanan.meja') }}">Pemesanan</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('pesanan.meja') }}">Home</a></li>
           <li class="breadcrumb-item active">{{ $title }}</li>
         </ol>
       </div>
@@ -91,8 +102,7 @@
         for(var i in result) {
           item += `<div class="col-md-12 col-lg-3">
             <div class="card">
-              <img src="${result[i].foto}"
-                class="card-img-top"/>
+              <div class="img-replace" style="background-image: url({{ asset('assets/dist/img/menu') }}/${result[i].foto})"></div>
               <div class="card-body">
                   <h5 class="text-center mb-0">${result[i].nama_menu}</h5>
                   <p class="text-muted text-center mb-2">Rp${hrg(result[i].harga)}</p>

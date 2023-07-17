@@ -54,6 +54,7 @@
                                 <th>Meja</th>
                                 <th>Waiter</th>
                                 <th>Status</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,7 +122,7 @@
             autoWidth: false,
             columnDefs: [
                 {
-                    targets: [0, 2, 3],
+                    targets: [0, 2, 3, 5],
                     className: "text-center",
                 }
             ],
@@ -152,6 +153,15 @@
                 {
                     data: 'status',
                 },
+                {
+                    title: 'Aksi',
+                    "data": 'no_pesanan',
+                    render: function(data, type, row, meta) {
+                        let text = `<div class="btn-group">
+                        <a href="{{ route('pesanan.detail', '') }}/${data}" class="btn btn-xs bg-gradient-warning"><i class="fas fa-eye text-white" data-toggle="tooltip" data-placement="top" title="Lihat Detail"></i></a>`;
+                        return text;
+                    }
+                }
             ],
             "stripeClasses": [],
             initComplete: function() {

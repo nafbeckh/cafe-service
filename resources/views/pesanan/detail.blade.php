@@ -38,7 +38,7 @@
             <div class="card-body">
                 @if($waiter == true)
                   @if($pesanan->status == 'Pesanan Siap')
-                  <button class="btn btn-md btn-success mb-3" id="btnSelesai" type="button">
+                  <button class="btn btn-md btn-success mb-3" id="btnSelesai" type="button" title="Selesaikan Pesanan">
                       Selesaikan Pesanan
                   </button>
                   @endif
@@ -47,11 +47,11 @@
                   </button>
                 @else
                   @if($pesanan->status == 'Belum Dikonfirmasi')
-                  <button class="btn btn-md btn-success mb-3" id="btnKonfirmasi" type="button">
+                  <button class="btn btn-md btn-success mb-3" id="btnKonfirmasi" type="button" title="Konfirmasi Pesanan">
                       Konfirmasi Pesanan
                   </button>
                   @elseif($pesanan->status == 'Dikonfirmasi')
-                  <button class="btn btn-md btn-success mb-3" id="btnSiap" type="button">
+                  <button class="btn btn-md btn-success mb-3" id="btnSiap" type="button" title="Pesanan Telah Siap">
                       Pesanan Telah Siap
                   </button>
                   @endif

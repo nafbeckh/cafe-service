@@ -18,7 +18,7 @@ class PesananController extends Controller
         $cafe = Setting::first();
         if ($request->ajax()) {
             return DataTables::of(Pesanan::with('meja', 'waiter')
-            ->where(['status' => 'Belum dikonfirmasi'])
+            ->where('status', '!=', 'Selesai')
             ->orderBy('created_at', 'asc')
             ->get())->toJson();
         }
