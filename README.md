@@ -21,7 +21,7 @@ Cafe Service merupakan aplikasi berbasis web untuk melayani pemesanan menu di se
 8. Jalankan server `php artisan serv`
 9. Selesai
 
-### Aktifkan W
+### Aktifkan Fitur Notifikasi
 
 1. Buat akun di [pusher.com](https://pusher.com/)
 2. Buat Pusher Channel
