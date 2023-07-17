@@ -17,7 +17,7 @@ class Pesanan extends Migration
             $table->string('no_pesanan', 12)->primary();
             $table->unsignedBigInteger('meja_id');
             $table->unsignedBigInteger('waiter_id');
-            $table->enum('status', ['Belum Dikonfirmasi', 'Dikonfirmasi', 'Selesai'])->default('Belum Dikonfirmasi');
+            $table->enum('status', ['Belum Dikonfirmasi', 'Dikonfirmasi', 'Pesanan Siap', 'Selesai'])->default('Belum Dikonfirmasi');
             $table->foreign('meja_id')->references('id')->on('mejas')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('waiter_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();

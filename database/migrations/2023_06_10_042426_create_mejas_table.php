@@ -17,6 +17,7 @@ class CreateMejasTable extends Migration
             $table->id();
             $table->string('no_meja', '5');
             $table->enum('status', ['Kosong', 'Diisi'])->default('Kosong');
+            $table->string('no_pesanan', 12)->nullable();
             $table->timestamps();
         });
     }
