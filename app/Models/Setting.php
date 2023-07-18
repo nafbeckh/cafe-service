@@ -9,6 +9,6 @@ class Setting extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama_cafe', 'alamat', 'path_logo'
+        'nama_cafe', 'alamat', 'diskon', 'per_pesanan', 'path_logo'
     ];
 }

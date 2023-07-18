@@ -17,6 +17,8 @@ class CreateSettingTable extends Migration
             $table->id();
             $table->string('nama_cafe', '50');
             $table->string('alamat', '100');
+            $table->tinyInteger('diskon')->default(0);
+            $table->tinyInteger('per_pesanan')->default(0);
             $table->string('path_logo');
             $table->timestamps();
         });

@@ -15,9 +15,11 @@ class SettingSeeder extends Seeder
     public function run()
     {
         Setting::create([
-            'nama_cafe' => 'Cafe Service',
-            'alamat' => 'Jl. Jendral Sudirman',
-            'path_logo' => 'logo-20230610091921.png'
+            'nama_cafe'   => 'Cafe Service',
+            'alamat'      => 'Jl. Jendral Sudirman',
+            'diskon'      => 0,
+            'per_pesanan' => 0,
+            'path_logo'   => 'logo-20230610091921.png'
         ]);
     }
 }

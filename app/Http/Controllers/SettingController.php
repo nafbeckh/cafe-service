@@ -35,14 +35,18 @@ class SettingController extends Controller
         $setting = Setting::first();
         if ($request->hasFile('foto')) {
             $this->validate($request, [
-                'nama_cafe' => 'required|max:25|min:3',
-                'alamat'    => 'required',
-                'foto'      => 'required|mimes:jpg,jpeg,png|max:10240',
+                'nama_cafe'     => 'required|max:25|min:3',
+                'alamat'        => 'required',
+                'diskon'        => 'required',
+                'per_pesanan'   => 'required',
+                'foto'          => 'required|mimes:jpg,jpeg,png|max:10240',
             ]);
         } else {
             $this->validate($request, [
-                'nama_cafe' => 'required|max:25|min:3',
-                'alamat'    => 'required',
+                'nama_cafe'     => 'required|max:25|min:3',
+                'diskon'        => 'required',
+                'per_pesanan'   => 'required',
+                'alamat'        => 'required',
             ]);
         }
 
@@ -52,14 +56,19 @@ class SettingController extends Controller
             File::delete(public_path('/assets/dist/img/') . $setting->path_logo);
             $file->move(public_path('/assets/dist/img'), $nama);
             $setting->update([
-                'nama_cafe' => $request->nama_cafe,
-                'alamat' => $request->alamat,
-                'path_logo' => $nama,
+                'nama_cafe'     => $request->nama_cafe,
+                'alamat'        => $request->alamat,
+                'diskon'        => $request->diskon,
+                'per_pesanan'   => $request->per_pesanan,
+                'path_logo'     => $nama,
+                'path_logo'     => $nama,
             ]);
         } else {
             $setting->update([
-                'nama_cafe' => $request->nama_cafe,
-                'alamat' => $request->alamat,
+                'nama_cafe'     => $request->nama_cafe,
+                'diskon'        => $request->diskon,
+                'per_pesanan'   => $request->per_pesanan,
+                'alamat'        => $request->alamat,
             ]);
         }
         

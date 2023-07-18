@@ -21,10 +21,14 @@
 
 <section class="content">
   <div class="container-fluid">
+    <div class="alert alert-info alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      *Pelanggan yang menggunakan <b>Kode Pelanggan</b> ketika memesan akan mendapatkan diskon beberapa persen dari total pesanannya<br>
+      Jika sudah mencapai jumlah pesanan sesuai dengan <b>Per Pesanan</b> yang ditentukan
+    </div>
     <div class="card card-default">
       <div class="card-header">
         <h3 class="card-title">Form {{ $title }}</h3>
-
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse">
             <i class="fas fa-minus"></i>
@@ -47,13 +51,41 @@
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
               </div>
-  
+              
               <div class="form-group">
                 <label for="alamat">Alamat :</label>
                 <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror" placeholder="Masukkan Alamat">{{ $cafe->alamat }}</textarea>
                 @error('alamat')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-3">
+                  <label for="diskon">Diskon :</label>
+                  <div class="input-group mb-3">
+                    <input type="text" name="diskon" id="diskon" value="{{ $cafe->diskon }}" class="form-control @error('diskon') is-invalid @enderror" placeholder="0">
+                    <div class="input-group-append">
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                  @error('diskon')
+                  <div class="alert alert-danger mt-2">{{ $message }}</div>
+                  @enderror
+                </div>
+
+                <div class="col-sm-3">
+                  <label for="per_pesanan">Per Pesanan :</label>
+                  <div class="input-group mb-3">
+                    <input type="text" name="per_pesanan" id="per_pesanan" value="{{ $cafe->per_pesanan }}" class="form-control col @error('per_pesanan') is-invalid @enderror" placeholder="0">
+                    <div class="input-group-append">
+                      <span class="input-group-text">X</span>
+                    </div>
+                  </div>
+                  @error('per_pesanan')
+                  <div class="alert alert-danger mt-2">{{ $message }}</div>
+                  @enderror
+                </div>
               </div>
             </div>
             <!-- /.col -->
@@ -67,8 +99,8 @@
                 @error('foto')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
-              <img src="{{ asset('assets/dist/img') }}/{{ $cafe->path_logo }}" alt="Logo Toko" width="100px" height="100px">
-            </div>
+                <img src="{{ asset('assets/dist/img') }}/{{ $cafe->path_logo }}" alt="Logo Toko" width="100px" height="100px">
+              </div>           
             </div>
             <!-- /.col -->
           </div>
@@ -88,6 +120,9 @@
 @endsection
 
 @push('js')
+<!-- bs-custom-file-input -->
+<script src="{{ asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+
 @if(session()->has('success'))
 <script>
     Swal.fire(
