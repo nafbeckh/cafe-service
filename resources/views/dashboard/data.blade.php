@@ -26,7 +26,7 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>3</h3>
+                        <h3>{{ $pelanggan }}</h3>
 
                         <p>Pelanggan</p>
                     </div>
