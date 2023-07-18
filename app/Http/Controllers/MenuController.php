@@ -154,9 +154,9 @@ class MenuController extends Controller
         $menu->delete();
 
         if ($menu) {
-            return response()->json(['status' => true, 'message' => 'Berhasil menhapus data Menu']);
+            return response()->json(['status' => true, 'message' => 'Berhasil menghapus data Menu']);
         } else {
-            return response()->json(['status' => false, 'message' => 'Gagal menhapus data Menu']);
+            return response()->json(['status' => false, 'message' => 'Gagal menghapus data Menu']);
         }
     }
 
@@ -169,9 +169,9 @@ class MenuController extends Controller
                 $menu->delete();
             }
 
-            return response()->json(['status' => true, 'message' => 'Berhasil menhapus data Menu']);
+            return response()->json(['status' => true, 'message' => 'Berhasil menghapus data Menu']);
         } else {
-            return response()->json(['status' => false, 'message' => 'Gagal menhapus data Menu']);
+            return response()->json(['status' => false, 'message' => 'Gagal menghapus data Menu']);
         }
     }
 }

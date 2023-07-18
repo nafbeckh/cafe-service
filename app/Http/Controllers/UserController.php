@@ -193,9 +193,9 @@ class UserController extends Controller
         $user->delete();
 
         if ($user) {
-            return response()->json(['status' => true, 'message' => 'Berhasil menhapus data User$user']);
+            return response()->json(['status' => true, 'message' => 'Berhasil menghapus data User$user']);
         } else {
-            return response()->json(['status' => false, 'message' => 'Gagal menhapus data User$user']);
+            return response()->json(['status' => false, 'message' => 'Gagal menghapus data User$user']);
         }
     }
 
@@ -208,9 +208,9 @@ class UserController extends Controller
                 $user->delete();
             }
 
-            return response()->json(['status' => true, 'message' => 'Berhasil menhapus data User']);
+            return response()->json(['status' => true, 'message' => 'Berhasil menghapus data User']);
         } else {
-            return response()->json(['status' => false, 'message' => 'Gagal menhapus data User']);
+            return response()->json(['status' => false, 'message' => 'Gagal menghapus data User']);
         }
     }
 }

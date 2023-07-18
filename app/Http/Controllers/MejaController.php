@@ -98,9 +98,9 @@ class MejaController extends Controller
         $meja->delete();
 
         if ($meja) {
-            return response()->json(['status' => true, 'message' => 'Berhasil menhapus data Meja']);
+            return response()->json(['status' => true, 'message' => 'Berhasil menghapus data Meja']);
         } else {
-            return response()->json(['status' => false, 'message' => 'Gagal menhapus data Meja']);
+            return response()->json(['status' => false, 'message' => 'Gagal menghapus data Meja']);
         }
     }
 
@@ -112,9 +112,9 @@ class MejaController extends Controller
                 $meja->delete();
             }
 
-            return response()->json(['status' => true, 'message' => 'Berhasil menhapus data Meja']);
+            return response()->json(['status' => true, 'message' => 'Berhasil menghapus data Meja']);
         } else {
-            return response()->json(['status' => false, 'message' => 'Gagal menhapus data Meja']);
+            return response()->json(['status' => false, 'message' => 'Gagal menghapus data Meja']);
         }
     }
 }

@@ -99,9 +99,9 @@ class KategoriController extends Controller
         $kategori->delete();
 
         if ($kategori) {
-            return response()->json(['status' => true, 'message' => 'Berhasil menhapus data Kategori Menu']);
+            return response()->json(['status' => true, 'message' => 'Berhasil menghapus data Kategori Menu']);
         } else {
-            return response()->json(['status' => false, 'message' => 'Gagal menhapus data Kategori Menu']);
+            return response()->json(['status' => false, 'message' => 'Gagal menghapus data Kategori Menu']);
         }
     }
 
@@ -113,9 +113,9 @@ class KategoriController extends Controller
                 $kategori->delete();
             }
 
-            return response()->json(['status' => true, 'message' => 'Berhasil menhapus data Kategori Menu']);
+            return response()->json(['status' => true, 'message' => 'Berhasil menghapus data Kategori Menu']);
         } else {
-            return response()->json(['status' => false, 'message' => 'Gagal menhapus data Kategori Menu']);
+            return response()->json(['status' => false, 'message' => 'Gagal menghapus data Kategori Menu']);
         }
     }
 }
