@@ -32,7 +32,7 @@
 
     <li class="nav-header">LAPORAN</li>
     <li class="nav-item">
-      <a href="" class="nav-link {{ $title == 'Laporan Pesanan' ? 'active' : '' }}">
+      <a href="{{ route('laporan.pesanan') }}" class="nav-link {{ $title == 'Laporan Pesanan' ? 'active' : '' }}">
           <i class="nav-icon fas fa-file-alt"></i>
           <p>Laporan Pesanan</p>
       </a>
