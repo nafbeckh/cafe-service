@@ -8,6 +8,7 @@ use App\Http\Controllers\{
     MenuController,
     MejaController,
     UserController,
+    PelangganController,
     PesananController,
     LaporanController,
     SettingController
@@ -66,7 +67,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('pesanan/detail/{no_pesanan}', [PesananController::class, 'showDetail'])->name('pesanan.detail');
         Route::get('pesanan/print/{no_pesanan}', [PesananController::class, 'print'])->name('pesanan.print');
         Route::post('pesanan/selesai', [PesananController::class, 'pesananSelesai'])->name('pesanan.selesai');
-    
+        
+        Route::resource('pelanggan', PelangganController::class)->only('store');
     });
 
     Route::group(['middleware' => ['role:chef|waiter']], function () {
