@@ -71,14 +71,14 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>6</h3>
+                        <h3>{{ $user }}</h3>
 
-                        <p>Pesanan</p>
+                        <p>User</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-shopping-basket"></i>
                     </div>
-                    <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('user.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
