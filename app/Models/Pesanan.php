@@ -26,6 +26,12 @@ class Pesanan extends Model
         return $noPesanan;
     }
 
+    public static function getIsDiskon($perPesanan, $kodePelanggan) {
+        $det = Self::where(['kode_pelanggan' => $kodePelanggan])->count();
+
+        return ($det % $perPesanan == 0) ? true : false;
+    }
+
     public function pesanan_detail()
     {
         return $this->hasMany(Pesanan_detail::class, 'no_pesanan');

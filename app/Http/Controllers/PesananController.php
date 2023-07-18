@@ -121,9 +121,24 @@ class PesananController extends Controller
         $pesanan = Pesanan::with('meja')->find($noPesanan);
         $pesananDet = Pesanan_detail::with('menu')->where(['no_pesanan' => $noPesanan])->get();
 
+        $diskon = 0;
+        $totalBayar = 0;
+
         $total = Pesanan_detail::getTotal($noPesanan);
 
-        return view('pesanan.detail', compact(['cafe', 'waiter', 'pesanan', 'pesananDet', 'total']))->with('title', 'Pesanan Meja ' . $pesanan->meja->no_meja);
+        if ($pesanan->kode_pelanggan != '') {
+            if ($cafe->diskon != 0 && $cafe->per_pesanan != 0) {
+                $isDiskon = Pesanan::getIsDiskon($cafe->per_pesanan, $pesanan->kode_pelanggan);
+
+                if ($isDiskon) {
+                    $diskon = $total * ($cafe->diskon / 100);
+                }
+
+                $totalBayar = $total - $diskon;
+            }
+        }
+
+        return view('pesanan.detail', compact(['cafe', 'waiter', 'pesanan', 'pesananDet', 'total', 'diskon', 'totalBayar']))->with('title', 'Pesanan Meja ' . $pesanan->meja->no_meja);
     }
 
     public function konfirmasiPesanan(Request $request)
@@ -185,9 +200,24 @@ class PesananController extends Controller
         $cafe = Setting::first();
         $pesanan = Pesanan::with('pesanan_detail', 'meja')->find($no_pesanan);
         if ($pesanan) {
+            $diskon = 0;
+            $totalBayar = 0;
+
             $total = Pesanan_detail::getTotal($no_pesanan);
 
-            return view('pesanan.print', compact(['cafe', 'pesanan', 'total']))->with('title', 'Print Bill Pembayaran');
+            if ($pesanan->kode_pelanggan != '') {
+                if ($cafe->diskon != 0 && $cafe->per_pesanan != 0) {
+                    $isDiskon = Pesanan::getIsDiskon($cafe->per_pesanan, $pesanan->kode_pelanggan);
+
+                    if ($isDiskon) {
+                        $diskon = $total * ($cafe->diskon / 100);
+                    }
+
+                    $totalBayar = $total - $diskon;
+                }
+            }
+
+            return view('pesanan.print', compact(['cafe', 'pesanan', 'total', 'diskon', 'totalBayar']))->with('title', 'Print Bill Pembayaran');
         } else {
             abort(404, 'belum ada pesanan');
         }

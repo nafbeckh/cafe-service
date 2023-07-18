@@ -74,6 +74,14 @@
                             <th style="text-align: right;">Total Harga :</th>
                             <th style="text-align: right;">{{ format_uang($total) }}</th>
                         </tr>
+                        <tr>
+                            <th style="text-align: right;">Diskon :</th>
+                            <th style="text-align: right;">{{ format_uang($diskon) }}</th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: right;">Total Bayar :</th>
+                            <th style="text-align: right;">{{ format_uang($totalBayar) }}</th>
+                        </tr>
                     </table>
                     ================================
                     <div class="text-center">

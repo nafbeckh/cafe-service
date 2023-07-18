@@ -12,9 +12,9 @@ class Pesanan_detail extends Model
         'no_pesanan', 'menu_id', 'jumlah'
     ];
 
-    public static function getTotal($noPpesanan) {
+    public static function getTotal($noPesanan) {
         $total = 0;
-        $det = Self::with('menu')->where(['no_pesanan' => $noPpesanan])->get();
+        $det = Self::with('menu')->where(['no_pesanan' => $noPesanan])->get();
 
         foreach($det as $item) {
             $total = $total + ($item->jumlah * $item->menu->harga);

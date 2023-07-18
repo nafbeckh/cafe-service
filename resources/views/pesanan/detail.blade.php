@@ -83,6 +83,14 @@
                             <th colspan="4" class="text-right">Tota Harga</th>
                             <th class="text-right">Rp{{ format_uang($total) }}</th>
                         </tr>
+                        <tr>
+                          <th colspan="4" class="text-right">Diskon</th>
+                          <th class="text-right">Rp{{ format_uang($diskon) }}</th>
+                      </tr>
+                      <tr>
+                        <th colspan="4" class="text-right">Total Bayar</th>
+                        <th class="text-right">Rp{{ format_uang($totalBayar) }}</th>
+                    </tr>
                     </tfoot>
                 </table>
             </div>
