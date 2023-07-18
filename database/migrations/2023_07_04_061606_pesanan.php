@@ -16,6 +16,7 @@ class Pesanan extends Migration
         Schema::create('pesanans', function (Blueprint $table) {
             $table->string('no_pesanan', 12)->primary();
             $table->unsignedBigInteger('meja_id');
+            $table->string('kode_pelanggan', 12)->nullable();
             $table->unsignedBigInteger('waiter_id');
             $table->enum('status', ['Belum Dikonfirmasi', 'Dikonfirmasi', 'Pesanan Siap', 'Selesai'])->default('Belum Dikonfirmasi');
             $table->foreign('meja_id')->references('id')->on('mejas')->cascadeOnDelete()->cascadeOnUpdate();

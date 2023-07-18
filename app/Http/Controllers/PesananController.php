@@ -59,10 +59,11 @@ class PesananController extends Controller
     {
         if($request->ajax()) {
             $pesanan = Pesanan::create([
-                'no_pesanan'    => Pesanan::generateNoPesanan(),
-                'meja_id'       => $request->meja_id,
-                'waiter_id'     => auth()->user()->id,
-                'status'        => 'Belum dikonfirmasi',
+                'no_pesanan'      => Pesanan::generateNoPesanan(),
+                'meja_id'         => $request->meja_id,
+                'kode_pelanggan'  => $request->kode_pelanggan ? $request->kode_pelanggan : '',
+                'waiter_id'       => auth()->user()->id,
+                'status'          => 'Belum dikonfirmasi',
             ]);
     
             if ($pesanan) {

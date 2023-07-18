@@ -32,48 +32,58 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCart">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="badge badge-primary navbar-badge total-count"></span>
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-              <i class="far fa-bell"></i>
-              <span class="badge badge-warning navbar-badge" data-count="" id="counterNotif"></span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="fetchNotf">
-              <div id="fetchNotif">
-                
-              </div>
-              <a href="" class="dropdown-item dropdown-footer">Lihat Semua Notifikasi</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown user-menu">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('assets/dist/img') }}/{{ auth()->user()->foto }}" class="user-image img-circle elevation-2" alt="User Image">
-            </a>
-            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <!-- User image -->
-              <li class="user-header bg-primary">
-                <img src="{{ asset('assets/dist/img') }}/{{ auth()->user()->foto }}" class="img-circle elevation-2" alt="User Image">
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+          <!-- Left navbar links -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#modalPelanggan">Daftar Pelanggan</a>
+            </li>
+          </ul>
 
-                <p>
-                  {{ auth()->user()->nama }}
-                  <small>Terdaftar pada {{ date('M Y', strtotime(auth()->user()->created_at)) }}</small>
-                </p>
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <a href="{{ route('setting.profile') }}" class="btn btn-default btn-flat">Profile</a>
-                <a href="javascript:void(0);" onclick="logout_()" class="btn btn-default btn-flat float-right">Log out</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
+          <!-- Right navbar links -->
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCart">
+                  <i class="fas fa-shopping-cart"></i>
+                  <span class="badge badge-primary navbar-badge total-count"></span>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="far fa-bell"></i>
+                <span class="badge badge-warning navbar-badge" data-count="" id="counterNotif"></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="fetchNotf">
+                <div id="fetchNotif">
+                  
+                </div>
+                <a href="" class="dropdown-item dropdown-footer">Lihat Semua Notifikasi</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown user-menu">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                <img src="{{ asset('assets/dist/img') }}/{{ auth()->user()->foto }}" class="user-image img-circle elevation-2" alt="User Image">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <!-- User image -->
+                <li class="user-header bg-primary">
+                  <img src="{{ asset('assets/dist/img') }}/{{ auth()->user()->foto }}" class="img-circle elevation-2" alt="User Image">
+
+                  <p>
+                    {{ auth()->user()->nama }}
+                    <small>Terdaftar pada {{ date('M Y', strtotime(auth()->user()->created_at)) }}</small>
+                  </p>
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <a href="{{ route('setting.profile') }}" class="btn btn-default btn-flat">Profile</a>
+                  <a href="javascript:void(0);" onclick="logout_()" class="btn btn-default btn-flat float-right">Log out</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </nav>
     <!-- /.navbar -->
@@ -83,6 +93,45 @@
       @yield('content')
     </div>
     <!-- /.content-wrapper -->
+
+    <div class="modal animated fade fadeInDown" id="modalPelanggan" role="dialog" aria-labelledby="modalPelanggan" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Tambah Baru</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" data-toggle="tooltip" title="Close">&times;</span>
+                </button>
+            </div>
+            <form id="form" action="" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group row">
+                            <label for="kode_pelanggan" class="col-sm-3 col-form-label">Kode Pelanggan :</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="kode_pelanggan" class="form-control" id="kode_pelanggan" placeholder="Masukkan Kode Pelanggan" minlength="6" maxlength="12" required>
+                                <span id="err_kode_pelanggan" class="error invalid-feedback" style="display: hide;"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label for="nama" class="col-sm-3 col-form-label">Nama Pelanggan :</label>
+                          <div class="col-sm-9">
+                              <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Pelanggan" minlength="2" maxlength="30" required>
+                              <span id="err_nama" class="error invalid-feedback" style="display: hide;"></span>
+                          </div>
+                      </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Batal</button>
+                    <button type="reset" id="reset" class="btn btn-secondary">Reset</button>
+                    <button type="submit" class="btn btn-primary">Daftar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <form action="{{ route('logout') }}" method="POST" id="form_logout" class="d-none">
       @csrf
@@ -105,7 +154,10 @@
   <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
   <!-- SweetAlert2 -->
   <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-  
+  <!-- jquery-validation -->
+  <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
   @stack('js')
   <script>
     function logout_() {
@@ -125,6 +177,77 @@
             }
         })
     }
-</script>
+
+    $('#form').submit(function(event) {
+            event.preventDefault();
+        }).validate({
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+                $(element).addClass('is-valid');
+            },
+            submitHandler: function(form) {
+                var formData = new FormData($(form)[0]);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('pelanggan.store') }}",
+                    mimeType: 'application/json',
+                    dataType: 'json',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('button[type="submit"]').prop('disabled', true);
+                        $('#form .error.invalid-feedback').each(function(i) {
+                            $(this).hide();
+                        });
+                        $('#form input.is-invalid').each(function(i) {
+                            $(this).removeClass('is-invalid');
+                        });
+                    },
+                    success: function(res) {
+                        $('button[type="submit"]').prop('disabled', false);
+                        $('#reset').click();
+                        if (res.status == true) {
+                            Swal.fire(
+                                'Success!',
+                                res.message,
+                                'success'
+                            )
+                        } else {
+                            Swal.fire(
+                                'Failed!',
+                                res.message,
+                                'error'
+                            )
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $('button[type="submit"]').prop('disabled', false);
+                        er = xhr.responseJSON.errors
+                        erlen = Object.keys(er).length
+                        for (i = 0; i < erlen; i++) {
+                            obname = Object.keys(er)[i];
+                            $('#' + obname).addClass('is-invalid');
+                            $('#err_' + obname).text(er[obname][0]);
+                            $('#err_' + obname).show();
+                        }
+                    }
+                });
+            }
+        });
+  </script>
   </body>
 </html>

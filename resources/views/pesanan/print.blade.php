@@ -34,6 +34,9 @@
             </div>
             <div class="text-left">
                 <br>No. Meja: {{ $pesanan->meja->no_meja }}
+                @if($pesanan->kode_pelanggan != '')
+                <br>Pelanggan: {{ $pesanan->pelanggan->nama }}
+                @endif
                 <br>No. Pesanan: {{ $pesanan->no_pesanan }}
                 <br>Tgl Pesanan: {{ date('d/m/Y H:i:s', strtotime($pesanan->created_at)) }}
                 <br>

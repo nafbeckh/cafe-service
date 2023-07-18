@@ -67,6 +67,14 @@
               </button>
           </div>
           <div class="modal-body">
+            <div class="form-group row">
+              <label for="kode_pelanggan" class="col-sm-3 col-form-label">Kode Pelanggan :</label>
+              <div class="col-sm-5">
+                  <input type="text" name="kode_pelanggan" class="form-control" id="kode_pelanggan" placeholder="Masukkan Kode Pelanggan" minlength="6" maxlength="12" required>
+                  <span id="err_kode_pelanggan" class="error invalid-feedback" style="display: hide;"></span>
+              </div>
+            </div>
+
             <div class="container show-cart">
             </div>
           </div>
@@ -122,8 +130,9 @@
   }
 
   $('#pesanMenu').click(function() {
-    var cartArray = shoppingCart.listCart();
+    let cartArray = shoppingCart.listCart();
 
+    let kode_pelanggan = $('#kode_pelanggan').val();
     Swal.fire({
       title: 'Are you sure?',
       text: "Pesan Menu?",
@@ -146,6 +155,7 @@
           url: "{{ route('pesanan.pesan') }}",
           data: {
             meja_id: "{{ $meja_id }}",
+            kode_pelanggan: kode_pelanggan,
             menu: cartArray,
           },
           success: function (res) {

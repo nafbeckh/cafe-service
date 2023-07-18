@@ -13,7 +13,7 @@ class Pesanan extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'no_pesanan', 'meja_id', 'waiter_id', 'status'
+        'no_pesanan', 'meja_id', 'kode_pelanggan', 'waiter_id', 'status'
     ];
 
     public static function generateNoPesanan()
@@ -39,5 +39,10 @@ class Pesanan extends Model
     public function waiter()
     {
         return $this->belongsTo(User::class, 'waiter_id');
+    }
+
+    public function pelanggan()
+    {
+        return $this->hasOne(Pelanggan::class, 'kode_pelanggan', 'kode_pelanggan');
     }
 }
