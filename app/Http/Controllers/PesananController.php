@@ -7,9 +7,11 @@ use App\Models\Menu;
 use App\Models\Setting;
 use App\Models\Kategori;
 use App\Models\Pesanan;
+use App\Models\Pelanggan;
 use App\Models\Pesanan_detail;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PesananController extends Controller
 {
@@ -58,20 +60,36 @@ class PesananController extends Controller
     public function pesan(Request $request)
     {
         if($request->ajax()) {
-            $pesanan = Pesanan::create([
-                'no_pesanan'      => Pesanan::generateNoPesanan(),
-                'meja_id'         => $request->meja_id,
-                'kode_pelanggan'  => $request->kode_pelanggan ? $request->kode_pelanggan : '',
-                'waiter_id'       => auth()->user()->id,
-                'status'          => 'Belum dikonfirmasi',
-            ]);
-    
-            if ($pesanan) {
-                $meja = Meja::where(['id' => $pesanan->meja_id]);
-                $meja->update([
-                    'status'     => 'Diisi',
-                    'no_pesanan' => $pesanan->no_pesanan
+            $pelanggan = false;
+
+            if (isset($request->kode_pelanggan)) {
+                $pelanggan = Pelanggan::where(['kode_pelanggan' => $request->kode_pelanggan])->firstOrFail();
+
+                if ($pelanggan) {
+                    $pesanan = Pesanan::create([
+                        'no_pesanan'      => Pesanan::generateNoPesanan(),
+                        'meja_id'         => $request->meja_id,
+                        'kode_pelanggan'  => $request->kode_pelanggan,
+                        'waiter_id'       => auth()->user()->id,
+                        'status'          => 'Belum dikonfirmasi',
+                    ]);
+                }
+            } else {
+                $pesanan = Pesanan::create([
+                    'no_pesanan'      => Pesanan::generateNoPesanan(),
+                    'meja_id'         => $request->meja_id,
+                    'kode_pelanggan'  => '',
+                    'waiter_id'       => auth()->user()->id,
+                    'status'          => 'Belum dikonfirmasi',
                 ]);
+            }
+
+            if ($pesanan) {
+                // $meja = Meja::where(['id' => $pesanan->meja_id]);
+                // $meja->update([
+                //     'status'     => 'Diisi',
+                //     'no_pesanan' => $pesanan->no_pesanan
+                // ]);
     
                 foreach ($request->input('menu') as $p) {
                     Pesanan_detail::create([
