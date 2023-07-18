@@ -9,7 +9,7 @@ use App\Http\Controllers\{
     MejaController,
     UserController,
     PesananController,
-    PemesananController,
+    LaporanController,
     SettingController
 };
 
@@ -47,6 +47,9 @@ Route::group(['middleware' => 'auth'], function () {
         
         Route::get('/setting', [SettingController::class, 'index'])->name('setting.cafe');
         Route::post('/setting', [SettingController::class, 'update'])->name('setting.cafe.update');
+        
+        Route::get('laporan/pesanan', [LaporanController::class, 'index'])->name('laporan.pesanan');
+        Route::get('laporan/print', [LaporanController::class, 'print'])->name('laporan.print');
     });
 
     Route::group(['middleware' => ['role:chef']], function () {
