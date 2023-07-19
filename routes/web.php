@@ -11,7 +11,8 @@ use App\Http\Controllers\{
     PelangganController,
     PesananController,
     LaporanController,
-    SettingController
+    SettingController,
+    NotifikasiController
 };
 
 /*
@@ -74,6 +75,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => ['role:chef|waiter']], function () {
         Route::get('pesanan/detail/{no_pesanan}', [PesananController::class, 'showDetail'])->name('pesanan.detail');
     });
+
+    Route::resource('notifikasi', NotifikasiController::class)->only('index', 'destroy');
+    Route::get('notifikasi/show/{id}', [NotifikasiController::class, 'show'])->name('notifikasi.show');
+    Route::get('notifikasi/cekNotif', [NotifikasiController::class, 'cekNotif'])->name('notifikasi.cekNotif');
+    Route::get('notifikasi/fetchNotif', [NotifikasiController::class, 'fetchNotif'])->name('notifikasi.fetchNotif');
 
     Route::get('/profile', [SettingController::class, 'profile'])->name('setting.profile');
     Route::post('/profile', [SettingController::class, 'profileUpdate'])->name('setting.profileUpdate');
