@@ -28,6 +28,7 @@ Cafe Service merupakan aplikasi berbasis web untuk melayani pemesanan menu di se
 3. Masukkan App Keys channel tersebut ke dalam file `.env`
 ```
 PUSHER_APP_ID=YOUR_APPID
+PUSHER_APP_CHANNEL=YOUR_CHANNEL
 PUSHER_APP_KEY=YOUR_KEY
 PUSHER_APP_SECRET=YOUR_SECRET
 PUSHER_APP_CLUSTER=YOUR_CLUSTER
