@@ -32,7 +32,7 @@
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" id="btnNotif">
               <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
                 <span class="badge badge-warning navbar-badge" data-count="" id="counterNotif"></span>
@@ -41,7 +41,7 @@
                 <div id="fetchNotif">
                   
                 </div>
-                <a href="" class="dropdown-item dropdown-footer">Lihat Semua Notifikasi</a>
+                <a href="{{ asset('notifikasi') }}" class="dropdown-item dropdown-footer">Lihat Semua Notifikasi</a>
               </div>
           </li>
           <li class="nav-item dropdown user-menu">
@@ -108,6 +108,7 @@
       <div class="content-wrapper">
         @yield('content')
       </div>
+
       <!-- /.content-wrapper -->
       <footer class="main-footer">
         <strong>Copyright &copy; 2023 <a href="https://github.com/nafbeckh/cafe-service" target="_blank">Cafe Service</a>
@@ -136,7 +137,9 @@
     <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- SweetAlert2 -->
     <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    
+    <!-- Pusher -->
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
     @stack('js')
     <script>
       function logout_() {
@@ -156,6 +159,70 @@
               }
           })
       }
+
+      $(document).ready(function() {
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+          cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
+        });
+
+        var channel = pusher.subscribe('{{ env('PUSHER_APP_CHANNEL') }}');
+        channel.bind('{{ env('PUSHER_APP_CHANNEL') }}', function(data) {
+          for (let i = 0; i < data.length; i++){
+            if (data[i].to_id == {{ auth()->user()->id }}) {
+              notifSound();
+              $('#counterNotif').html(data[i].count);
+            }
+          }
+        });
+
+        countNotif();
+      });
+
+      $('#btnNotif').click(function() {
+        fetchNotif();
+      });
+
+      function notifSound() {
+        const audio = new Audio("{{ asset('assets/dist/audio/nofitication.wav') }}");
+        audio.play();
+      }
+
+      function countNotif(){
+        $.ajax({
+          type: 'GET',
+          url: "{{ route('notifikasi.cekNotif') }}",
+          success: function(data){
+            $('#counterNotif').html(data);
+          },
+          error: function (data) {
+            console.log('Error:', data);
+          }
+        });
+      }
+
+      function fetchNotif(){
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('notifikasi.fetchNotif') }}",
+                success: function(data){
+                  let notif = '';
+                  for(let i in data) {
+                    notif += `<a href="" class="dropdown-item" style="${data[i].is_read ? '' : 'background:#edeff1'}">
+                    <span class="d-inline-block text-truncate" style="max-width: 200px;">
+                      ${data[i].title}
+                    </span>
+                    <span class="float-right text-sm">{{timeAgo('2023-07-19 06:00:35')}}</span>
+                    </a>`;
+                  }
+                    $('#fetchNotif').html(notif);
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
   </script>
   </body>
 </html>
