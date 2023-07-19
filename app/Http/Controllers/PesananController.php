@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Pusher\Pusher;
+use App\Models\User;
 use App\Models\Meja;
 use App\Models\Menu;
 use App\Models\Setting;
@@ -9,9 +11,9 @@ use App\Models\Kategori;
 use App\Models\Pesanan;
 use App\Models\Pelanggan;
 use App\Models\Pesanan_detail;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PesananController extends Controller
 {
@@ -85,11 +87,11 @@ class PesananController extends Controller
             }
 
             if ($pesanan) {
-                // $meja = Meja::where(['id' => $pesanan->meja_id]);
-                // $meja->update([
-                //     'status'     => 'Diisi',
-                //     'no_pesanan' => $pesanan->no_pesanan
-                // ]);
+                $meja = Meja::where(['id' => $pesanan->meja_id]);
+                $meja->update([
+                    'status'     => 'Diisi',
+                    'no_pesanan' => $pesanan->no_pesanan
+                ]);
     
                 foreach ($request->input('menu') as $p) {
                     Pesanan_detail::create([
@@ -99,30 +101,33 @@ class PesananController extends Controller
                     ]);
                 }
     
-                // $pusher = new Pusher(
-                //     env('PUSHER_APP_KEY'),
-                //     env('PUSHER_APP_SECRET'),
-                //     env('PUSHER_APP_ID'),
-                //     ['cluster' => 'ap1', 'useTLS' => true],
-                // );
+                $pusher = new Pusher(
+                    env('PUSHER_APP_KEY'),
+                    env('PUSHER_APP_SECRET'),
+                    env('PUSHER_APP_ID'),
+                    ['cluster' => env('PUSHER_APP_CLUSTER'), 'useTLS' => true],
+                );
                 
-                // $nama_meja = $meja->get('no_meja');
-                // $user = User::whereHas(
-                //         'roles', function($q){
-                //             $q->where('name', '!=', 'waiters');
-                //         })->get();
-                // $data = [];
-                // foreach ($user as $item) {
-                //     $notif = Notifikasi::create([
-                //         'user_id'       => $item->id,
-                //         'penjualan_id'  => $penjualan->id,
-                //         'pesan'         => 'Pesanan dari ' .$nama_meja[0]->nama,
-                //     ]);
+                $no_meja = $meja->get('no_meja');
+                $user = User::whereHas(
+                        'roles', function($q){
+                            $q->whereNotIn('name', ['admin', 'waiter']);
+                        })->get();
+
+                $data = [];
+                foreach ($user as $item) {
+                    $notif = Notifikasi::create([
+                        'from_id'       => auth()->user()->id,
+                        'to_id'         => $item->id,
+                        'no_pesanan'    => $pesanan->no_pesanan,
+                        'title'         => 'Pesanan dari Meja ' .$no_meja[0]->no_meja,
+                        'message'       => 'Segera konfirmasi pesanan ini'
+                    ]);
     
-                //     $data[] = ['count' => ($this->countNotif($item->id) - 1) + 1, 'for' => $item->id, 'is_new' => 1];
-                // }
-    
-                // $pusher->trigger('notification', 'NotificationEvent', $data);
+                    $data[] = ['count' => Notifikasi::countNotif($item->id), 'to_id' => $item->id];
+                }
+                 
+                $pusher->trigger(env('PUSHER_APP_CHANNEL'), env('PUSHER_APP_CHANNEL'), $data);
                 
                 return response()->json(['status' => true, 'message' => 'Berhasil memesan Menu']);
             } else {
@@ -138,6 +143,10 @@ class PesananController extends Controller
         $cafe = Setting::first();
         $pesanan = Pesanan::with('meja')->find($noPesanan);
         $pesananDet = Pesanan_detail::with('menu')->where(['no_pesanan' => $noPesanan])->get();
+
+        if($pesanan->status == 'Selesai' && auth()->user()->hasRole('chef')) {
+            return redirect()->intended('pesanan');
+        }
 
         $diskon = 0;
         $totalBayar = 0;
@@ -168,6 +177,26 @@ class PesananController extends Controller
             ]);
 
             if($pesanan){
+                Notifikasi::create([
+                    'from_id'       => auth()->user()->id,
+                    'to_id'         => $pesanan->waiter_id,
+                    'no_pesanan'    => $pesanan->no_pesanan,
+                    'title'         => 'Pesanan Meja ' .$pesanan->meja->no_meja .' dikonfirmasi',
+                    'message'       => 'Pesanan telah dikonfirmasi. Chef ' .  auth()->user()->nama . ' akan menyiapkan pesanannya',
+                ]);
+
+                $data['count'] = Notifikasi::countNotif($pesanan->waiter_id);
+                $data['to_id'] = $pesanan->waiter_id;
+
+                $pusher = new Pusher(
+                    env('PUSHER_APP_KEY'),
+                    env('PUSHER_APP_SECRET'),
+                    env('PUSHER_APP_ID'),
+                    ['cluster' => env('PUSHER_APP_CLUSTER'), 'useTLS' => true],
+                );
+                 
+                $pusher->trigger(env('PUSHER_APP_CHANNEL'), env('PUSHER_APP_CHANNEL'), $data);
+
                 return response()->json(['status' => true, 'message' => 'Pesanan berhasil dikonfirmasi']);
             } else{
                 return response()->json(['status' => false, 'message' => 'Pesanan gagal dikonfirmasi']);
@@ -184,6 +213,26 @@ class PesananController extends Controller
             ]);
 
             if($pesanan){
+                Notifikasi::create([
+                    'from_id'       => auth()->user()->id,
+                    'to_id'         => $pesanan->waiter_id,
+                    'no_pesanan'    => $pesanan->no_pesanan,
+                    'title'         => 'Pesanan untuk Meja ' .$pesanan->meja->no_meja,
+                    'message'       => 'Pesanan telah siap. Silahkan untuk mengambil pesanannya',
+                ]);
+
+                $data['count'] = Notifikasi::countNotif($pesanan->waiter_id);
+                $data['to_id'] = $pesanan->waiter_id;
+
+                $pusher = new Pusher(
+                    env('PUSHER_APP_KEY'),
+                    env('PUSHER_APP_SECRET'),
+                    env('PUSHER_APP_ID'),
+                    ['cluster' => env('PUSHER_APP_CLUSTER'), 'useTLS' => true],
+                );
+                 
+                $pusher->trigger(env('PUSHER_APP_CHANNEL'), env('PUSHER_APP_CHANNEL'), $data);
+
                 return response()->json(['status' => true, 'message' => 'Pesanan siap disajikan']);
             } else{
                 return response()->json(['status' => false, 'message' => 'Gagal mengubah status Pesanan']);
